@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b2119"><title>Elektronik-Kabinett · Technik mit Geschichte</title><link rel="stylesheet" href="style.css"></head>
-<body><header><a class="brand" href="#" data-home>∿ ELEKTRONIK <i>/ KABINETT</i></a><nav><a href="#" data-home id="home" hidden>⌂ Home</a><button id="export" type="button">↓ Sammlung sichern</button><button id="add">+ Stück hinzufügen</button></nav></header>
+<body><header><a class="brand" href="#" data-home>∿ ELEKTRONIK <i>/ KABINETT</i></a>
+  <nav>
+<a href="#" data-home id="home" hidden>⌂ Home</a>
+<button id="loginButton" type="button">Admin-Anmeldung</button>
+<button id="logoutButton" type="button" hidden>Abmelden</button>
+<button id="export" type="button" hidden>↓ Sammlung sichern</button>
+<button id="add" hidden>+ Stück hinzufügen</button>
+</nav>
+</header>
 <main><section id="landing"><section class="hero"><div><p class="eyebrow">PRIVATE SAMMLUNG · ANALOGE FASZINATION</p><h1>Technik mit<br><em>Geschichte.</em></h1><p class="lead">Radios, die Geschichten erzählen. Funkgeräte, die Welten verbinden. Messgeräte, die Unsichtbares sichtbar machen.</p><a class="discover" href="#categories">Das Kabinett entdecken ↘</a></div><div class="art"><svg viewBox="0 0 600 340" role="img" aria-label="Illustration eines Oszilloskops"><rect x="55" y="50" width="490" height="240" rx="20" fill="#c9bd98"/><rect x="80" y="75" width="250" height="190" rx="12" fill="#514629"/><path d="M95 170 Q120 80 145 170 T195 170 T245 170 T295 170" fill="none" stroke="#fff1ce" stroke-width="5"/><g fill="#514326" stroke="#f4e6c2" stroke-width="5"><circle cx="400" cy="130" r="28"/><circle cx="475" cy="130" r="28"/><circle cx="400" cy="215" r="28"/><circle cx="475" cy="215" r="28"/></g></svg><small>Die Schönheit des Analogen · ILLUSTRATION 001</small></div></section><div class="status">GESAMMELT AUS LEIDENSCHAFT. BEWAHRT MIT NEUGIER.</div><section id="categories"><p class="eyebrow">DAS ARCHIV</p><h2>Gesammelte Schätze<span>.</span></h2><p class="muted">Sieben Bereiche zum Entdecken</p><div id="tiles" class="tiles"></div></section></section>
 <section id="category" hidden><p class="eyebrow">DAS ARCHIV</p><h1 id="catTitle"></h1><p id="catDesc" class="lead"></p><div class="toolbar"><a href="#" data-home>← Zurück zum Kabinett</a><input id="search" placeholder="Diese Kategorie durchsuchen …"></div><div id="entries" class="entries"></div><div id="empty" class="empty"><h2>Noch ist dieser Bereich leer.</h2><p>Hier kannst du später deine eigenen Geräte, Fotos und Geschichten präsentieren.</p><button id="first">Erstes Stück hinzufügen</button></div></section></main><dialog id="detail"><button type="button" id="detailClose" class="close">×</button><div id="detailContent"></div></dialog>
 <footer>ELEKTRONIK / KABINETT <span>Für die Freude am Entdecken, Sammeln und Bewahren.</span></footer>

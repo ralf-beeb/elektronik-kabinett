@@ -40,6 +40,7 @@ async function api(path, options = {}) {
     }
 
     if (response.status === 204) return null;
+
     return response.json();
 }
 
@@ -100,12 +101,17 @@ async function loadItems() {
 async function checkLogin() {
     try {
         const result = await api("/api/me");
+
         isAdmin = result.authenticated === true;
         csrfToken = result.csrf_token || "";
     } catch (error) {
         isAdmin = false;
         csrfToken = "";
-        console.error("Anmeldestatus konnte nicht geprüft werden:", error);
+
+        console.error(
+            "Anmeldestatus konnte nicht geprüft werden:",
+            error
+        );
     }
 
     updateAdminView();
@@ -130,13 +136,19 @@ function openCat(name) {
     $("#catDesc").textContent = category?.description || "";
 
     $("#search").value = "";
+
     render();
     scrollTo(0, 0);
 }
 
 function home() {
     active = "";
-    history.pushState({ home: true }, "", location.pathname);
+
+    history.pushState(
+        { home: true },
+        "",
+        location.pathname
+    );
 
     $("#landing").hidden = false;
     $("#category").hidden = true;
@@ -157,23 +169,27 @@ onpopstate = () => {
 
     if (categories.some(category => category.name === name)) {
         active = name;
+
         $("#landing").hidden = true;
         $("#category").hidden = false;
         $("#home").hidden = false;
 
         $("#catTitle").textContent = name + ".";
+
         $("#catDesc").textContent =
             categories.find(category => category.name === name)?.description || "";
 
         render();
     } else {
         active = "";
+
         $("#landing").hidden = false;
         $("#category").hidden = true;
         $("#home").hidden = true;
     }
 };
 
+// Geräteübersicht einschließlich Vorschaubildern
 function render() {
     const query = $("#search").value.toLocaleLowerCase("de");
 
@@ -194,11 +210,13 @@ function render() {
     });
 
     $("#entries").replaceChildren();
+
     $("#empty").hidden = items.length > 0;
     $("#first").hidden = !isAdmin;
 
     items.forEach(item => {
         const element = document.createElement("article");
+
         element.className = "entry clickable-entry";
 
         element.innerHTML =
@@ -211,10 +229,15 @@ function render() {
             (item.manufacturer
                 ? '<p class="muted">' + safe(item.manufacturer) + '</p>'
                 : '') +
-            '<p class="muted">' + safe(item.description || "") + '</p>' +
+            '<p class="muted">' +
+            safe(item.description || "") +
+            '</p>' +
             '<button type="button" class="detail-button">Details ansehen ↗</button>';
 
-        element.querySelector("button").onclick = () => showDetail(item.id);
+        element.querySelector("button").onclick = () => {
+            showDetail(item.id);
+        };
+
         element.onclick = event => {
             if (event.target.tagName !== "BUTTON") {
                 showDetail(item.id);
@@ -222,9 +245,49 @@ function render() {
         };
 
         $("#entries").append(element);
+
+        // Erstes Foto für die Übersicht vom Server laden
+        api("/api/items/" + item.id)
+            .then(detail => {
+                if (!detail.photos || !detail.photos.length) {
+                    return;
+                }
+
+                if (!element.isConnected) {
+                    return;
+                }
+
+                const image = document.createElement("img");
+
+                image.src = photoUrl(detail.photos[0].filename);
+                image.alt = item.title;
+                image.loading = "lazy";
+
+                image.onerror = () => {
+                    image.replaceWith(
+                        Object.assign(document.createElement("div"), {
+                            className: "no-photo",
+                            textContent: "∿"
+                        })
+                    );
+                };
+
+                const placeholder = element.querySelector(".no-photo");
+
+                if (placeholder) {
+                    placeholder.replaceWith(image);
+                }
+            })
+            .catch(error => {
+                console.warn(
+                    "Vorschaubild konnte nicht geladen werden:",
+                    error
+                );
+            });
     });
 }
 
+// Detailansicht
 async function showDetail(id) {
     try {
         const item = await api("/api/items/" + id);
@@ -232,40 +295,66 @@ async function showDetail(id) {
         const photos = item.photos || [];
 
         $("#detailContent").innerHTML =
-            '<p class="eyebrow">' + safe(item.category.toUpperCase()) + '</p>' +
+            '<p class="eyebrow">' +
+            safe(item.category.toUpperCase()) +
+            '</p>' +
+
             '<h2>' + safe(item.title) + '</h2>' +
+
             (item.manufacturer
-                ? '<p class="detail-maker">' + safe(item.manufacturer) + '</p>'
+                ? '<p class="detail-maker">' +
+                  safe(item.manufacturer) +
+                  '</p>'
                 : '') +
+
             (item.model
-                ? '<p class="muted">Modell: ' + safe(item.model) + '</p>'
+                ? '<p class="muted">Modell: ' +
+                  safe(item.model) +
+                  '</p>'
                 : '') +
+
             (photos.length
                 ? '<div class="detail-photos">' +
-                    photos.map(photo =>
-                        '<img src="' + photoUrl(photo.filename) +
-                        '" alt="' + safe(item.title) + '">'
-                    ).join("") +
+                  photos.map(photo =>
+                      '<img src="' +
+                      photoUrl(photo.filename) +
+                      '" alt="' + safe(item.title) + '">'
+                  ).join("") +
                   '</div>'
                 : '') +
+
             '<dl class="detail-meta">' +
+
             (item.year
-                ? '<div><dt>Baujahr / Zeitraum</dt><dd>' + safe(item.year) + '</dd></div>'
+                ? '<div><dt>Baujahr / Zeitraum</dt><dd>' +
+                  safe(item.year) +
+                  '</dd></div>'
                 : '') +
+
             (item.origin
-                ? '<div><dt>Herkunft</dt><dd>' + safe(item.origin) + '</dd></div>'
+                ? '<div><dt>Herkunft</dt><dd>' +
+                  safe(item.origin) +
+                  '</dd></div>'
                 : '') +
+
             '</dl>' +
+
             (item.description
-                ? '<h3>Beschreibung</h3><p>' + safe(item.description) + '</p>'
+                ? '<h3>Beschreibung</h3><p>' +
+                  safe(item.description) +
+                  '</p>'
                 : '') +
+
             (item.history
-                ? '<h3>Geschichte & Restaurierung</h3><p>' + safe(item.history) + '</p>'
+                ? '<h3>Geschichte & Restaurierung</h3><p>' +
+                  safe(item.history) +
+                  '</p>'
                 : '') +
+
             (isAdmin
                 ? '<div class="admin-actions">' +
-                    '<button type="button" id="editItem">Bearbeiten</button> ' +
-                    '<button type="button" id="deleteItem">Löschen</button>' +
+                  '<button type="button" id="editItem">Bearbeiten</button> ' +
+                  '<button type="button" id="deleteItem">Löschen</button>' +
                   '</div>'
                 : '');
 
@@ -275,14 +364,19 @@ async function showDetail(id) {
         }
 
         $("#detail").showModal();
+
     } catch (error) {
         alert("Gerät konnte nicht geladen werden: " + error.message);
     }
 }
 
-$("#detailClose").onclick = () => $("#detail").close();
+$("#detailClose").onclick = () => {
+    $("#detail").close();
+};
+
 $("#search").oninput = render;
 
+// Neues Gerät anlegen
 function openEditor() {
     if (!isAdmin) {
         alert("Bitte zuerst als Administrator anmelden.");
@@ -304,12 +398,21 @@ function openEditor() {
         categories.find(category => category.name === active)?.id || "";
 
     $("#form").querySelector("h2").textContent = "Ein neues Stück.";
+
     $("#form").querySelector("button[type=submit]").textContent =
         "Im Kabinett speichern ↗";
 
     $("#editor").showModal();
 }
 
+$("#add").onclick = openEditor;
+$("#first").onclick = openEditor;
+
+$("#close").onclick = () => {
+    $("#editor").close();
+};
+
+// Gerät bearbeiten
 function editItem(item) {
     $("#detail").close();
 
@@ -329,34 +432,37 @@ function editItem(item) {
     $("#history").value = item.history || "";
 
     $("#form").querySelector("h2").textContent = "Stück bearbeiten.";
+
     $("#form").querySelector("button[type=submit]").textContent =
         "Änderungen speichern ↗";
 
     $("#editor").showModal();
 }
 
-$("#add").onclick = openEditor;
-$("#first").onclick = openEditor;
-$("#close").onclick = () => $("#editor").close();
-
+// Gerät löschen
 async function deleteItem(id) {
     if (!confirm("Möchtest du dieses Sammlungsstück wirklich löschen?")) {
         return;
     }
 
     try {
-        await api("/api/items/" + id, { method: "DELETE" });
+        await api("/api/items/" + id, {
+            method: "DELETE"
+        });
 
         $("#detail").close();
+
         await loadItems();
 
         alert("Das Sammlungsstück wurde gelöscht.");
+
     } catch (error) {
         alert("Löschen fehlgeschlagen: " + error.message);
     }
 }
 
-$("#photo").onchange = async event => {
+// Fotos auswählen und Vorschau anzeigen
+$("#photo").onchange = event => {
     const files = [...event.target.files];
 
     if (files.length > 8) {
@@ -385,12 +491,15 @@ $("#photo").onchange = async event => {
 
     for (const file of files) {
         const image = document.createElement("img");
+
         image.src = URL.createObjectURL(file);
         image.alt = "Foto-Vorschau";
+
         $("#previewList").append(image);
     }
 };
 
+// Gerät speichern oder bearbeiten
 $("#form").onsubmit = async event => {
     event.preventDefault();
 
@@ -429,6 +538,7 @@ $("#form").onsubmit = async event => {
 
         for (const file of selectedPhotos) {
             const formData = new FormData();
+
             formData.append("file", file);
 
             await api("/api/items/" + itemId + "/photos", {
@@ -447,18 +557,23 @@ $("#form").onsubmit = async event => {
         await loadItems();
 
         alert("Das Sammlungsstück wurde gespeichert.");
+
     } catch (error) {
         alert("Speichern fehlgeschlagen: " + error.message);
     }
 };
 
+// Administrator-Anmeldung
 $("#loginButton").onclick = () => {
     $("#loginError").textContent = "";
     $("#loginForm").reset();
+
     $("#loginDialog").showModal();
 };
 
-$("#loginClose").onclick = () => $("#loginDialog").close();
+$("#loginClose").onclick = () => {
+    $("#loginDialog").close();
+};
 
 $("#loginForm").onsubmit = async event => {
     event.preventDefault();
@@ -478,19 +593,25 @@ $("#loginForm").onsubmit = async event => {
         csrfToken = result.csrf_token || "";
 
         updateAdminView();
+
         $("#loginDialog").close();
         $("#loginForm").reset();
 
         alert("Anmeldung erfolgreich.");
+
     } catch (error) {
         $("#loginError").textContent =
             "Anmeldung fehlgeschlagen: " + error.message;
     }
 };
 
+// Administrator-Abmeldung
 $("#logoutButton").onclick = async () => {
     try {
-        await api("/api/logout", { method: "POST" });
+        await api("/api/logout", {
+            method: "POST"
+        });
+
     } catch (error) {
         console.error("Abmeldung:", error);
     }
@@ -504,6 +625,7 @@ $("#logoutButton").onclick = async () => {
     alert("Du wurdest abgemeldet.");
 };
 
+// Sammlung sichern
 $("#export").onclick = () => {
     if (!isAdmin) return;
 
@@ -523,9 +645,11 @@ $("#export").onclick = () => {
     const link = document.createElement("a");
 
     link.href = url;
+
     link.download =
         "elektronik-kabinett-backup-" +
-        new Date().toISOString().slice(0, 10) + ".json";
+        new Date().toISOString().slice(0, 10) +
+        ".json";
 
     document.body.append(link);
     link.click();
@@ -534,6 +658,7 @@ $("#export").onclick = () => {
     URL.revokeObjectURL(url);
 };
 
+// Programmstart
 async function start() {
     updateAdminView();
 
@@ -547,6 +672,7 @@ async function start() {
         if (categories.some(category => category.name === name)) {
             openCat(name);
         }
+
     } catch (error) {
         console.error(error);
 

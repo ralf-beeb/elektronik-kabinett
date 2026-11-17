@@ -189,7 +189,7 @@ onpopstate = () => {
     }
 };
 
-// Geräteübersicht einschließlich Vorschaubildern
+// Geräteübersicht mit direkter Bildvorschau
 function render() {
     const query = $("#search").value.toLocaleLowerCase("de");
 
@@ -216,11 +216,16 @@ function render() {
 
     items.forEach(item => {
         const element = document.createElement("article");
-
         element.className = "entry clickable-entry";
 
+        const imageMarkup = item.first_photo
+            ? '<img class="entry-preview" src="' +
+              photoUrl(item.first_photo) +
+              '" alt="' + safe(item.title) + '" loading="lazy">'
+            : '<div class="no-photo">∿</div>';
+
         element.innerHTML =
-            '<div class="no-photo">∿</div>' +
+            imageMarkup +
             '<p class="eyebrow">' +
             safe((item.category || "").toUpperCase()) +
             ' · ' + safe(item.year || "ZEITRAUM OFFEN") +
@@ -234,56 +239,25 @@ function render() {
             '</p>' +
             '<button type="button" class="detail-button">Details ansehen ↗</button>';
 
-        element.querySelector("button").onclick = () => {
+        const preview = element.querySelector(".entry-preview");
+
+        if (preview) {
+            preview.onerror = () => {
+                const placeholder = document.createElement("div");
+                placeholder.className = "no-photo";
+                placeholder.textContent = "∿";
+                preview.replaceWith(placeholder);
+            };
+        }
+
+        element.querySelector("button").onclick = event => {
+            event.stopPropagation();
             showDetail(item.id);
         };
 
-        element.onclick = event => {
-            if (event.target.tagName !== "BUTTON") {
-                showDetail(item.id);
-            }
-        };
+        element.onclick = () => showDetail(item.id);
 
         $("#entries").append(element);
-
-        // Erstes Foto für die Übersicht vom Server laden
-        api("/api/items/" + item.id)
-            .then(detail => {
-                if (!detail.photos || !detail.photos.length) {
-                    return;
-                }
-
-                if (!element.isConnected) {
-                    return;
-                }
-
-                const image = document.createElement("img");
-
-                image.src = photoUrl(detail.photos[0].filename);
-                image.alt = item.title;
-                image.loading = "lazy";
-
-                image.onerror = () => {
-                    image.replaceWith(
-                        Object.assign(document.createElement("div"), {
-                            className: "no-photo",
-                            textContent: "∿"
-                        })
-                    );
-                };
-
-                const placeholder = element.querySelector(".no-photo");
-
-                if (placeholder) {
-                    placeholder.replaceWith(image);
-                }
-            })
-            .catch(error => {
-                console.warn(
-                    "Vorschaubild konnte nicht geladen werden:",
-                    error
-                );
-            });
     });
 }
 
@@ -479,7 +453,7 @@ $("#photo").onchange = event => {
         }
 
         if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-            alert("Bitte nur JPEG-, PNG- oder WebP-Bilder verwenden.");
+            alert("Bitte nur JPEG-, PNG- und WebP-Bilder verwenden.");
             event.target.value = "";
             return;
         }

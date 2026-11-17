@@ -1,7 +1,18 @@
+
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b2119"><title>Elektronik-Kabinett · Technik mit Geschichte</title><link rel="stylesheet" href="style.css"></head>
-<body><header><a class="brand" href="#" data-home>∿ ELEKTRONIK <i>/ KABINETT</i></a>
-  <nav>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b2119">
+<title>Elektronik-Kabinett · Technik mit Geschichte</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header>
+<a class="brand" href="#" data-home>∿ ELEKTRONIK <i>/ KABINETT</i></a>
+<nav>
 <a href="#" data-home id="home" hidden>⌂ Home</a>
 <button id="loginButton" type="button">Admin-Anmeldung</button>
 <button id="logoutButton" type="button" hidden>Abmelden</button>
@@ -9,7 +20,148 @@
 <button id="add" hidden>+ Stück hinzufügen</button>
 </nav>
 </header>
-<main><section id="landing"><section class="hero"><div><p class="eyebrow">PRIVATE SAMMLUNG · ANALOGE FASZINATION</p><h1>Technik mit<br><em>Geschichte.</em></h1><p class="lead">Radios, die Geschichten erzählen. Funkgeräte, die Welten verbinden. Messgeräte, die Unsichtbares sichtbar machen.</p><a class="discover" href="#categories">Das Kabinett entdecken ↘</a></div><div class="art"><svg viewBox="0 0 600 340" role="img" aria-label="Illustration eines Oszilloskops"><rect x="55" y="50" width="490" height="240" rx="20" fill="#c9bd98"/><rect x="80" y="75" width="250" height="190" rx="12" fill="#514629"/><path d="M95 170 Q120 80 145 170 T195 170 T245 170 T295 170" fill="none" stroke="#fff1ce" stroke-width="5"/><g fill="#514326" stroke="#f4e6c2" stroke-width="5"><circle cx="400" cy="130" r="28"/><circle cx="475" cy="130" r="28"/><circle cx="400" cy="215" r="28"/><circle cx="475" cy="215" r="28"/></g></svg><small>Die Schönheit des Analogen · ILLUSTRATION 001</small></div></section><div class="status">GESAMMELT AUS LEIDENSCHAFT. BEWAHRT MIT NEUGIER.</div><section id="categories"><p class="eyebrow">DAS ARCHIV</p><h2>Gesammelte Schätze<span>.</span></h2><p class="muted">Sieben Bereiche zum Entdecken</p><div id="tiles" class="tiles"></div></section></section>
-<section id="category" hidden><p class="eyebrow">DAS ARCHIV</p><h1 id="catTitle"></h1><p id="catDesc" class="lead"></p><div class="toolbar"><a href="#" data-home>← Zurück zum Kabinett</a><input id="search" placeholder="Diese Kategorie durchsuchen …"></div><div id="entries" class="entries"></div><div id="empty" class="empty"><h2>Noch ist dieser Bereich leer.</h2><p>Hier kannst du später deine eigenen Geräte, Fotos und Geschichten präsentieren.</p><button id="first">Erstes Stück hinzufügen</button></div></section></main><dialog id="detail"><button type="button" id="detailClose" class="close">×</button><div id="detailContent"></div></dialog>
-<footer>ELEKTRONIK / KABINETT <span>Für die Freude am Entdecken, Sammeln und Bewahren.</span></footer>
-<dialog id="editor"><form id="form"><button type="button" id="close" class="close">×</button><p class="eyebrow">DEIN ARCHIV ERWEITERN</p><h2>Ein neues Stück.</h2><label>Fotos auswählen<input id="photo" type="file" accept="image/*" multiple></label><div id="previewList" class="preview-list"></div><label>Gerätename<input id="title" required maxlength="100" placeholder="z. B. Tektronix 545A"></label><label>Hersteller<input id="manufacturer" maxlength="100" placeholder="z. B. Tektronix"></label><label>Kategorie<select id="catSelect"></select></label><div class="form-row"><label>Baujahr / Zeitraum<input id="year" maxlength="40" placeholder="z. B. 1960–1965"></label><label>Herkunft<input id="origin" maxlength="120" placeholder="z. B. Flohmarkt"></label></div><label>Beschreibung und technische Besonderheiten<textarea id="desc" rows="4" maxlength="3000" placeholder="Technische Daten, Zustand, Besonderheiten …"></textarea></label><label>Restaurierung / Geschichte<textarea id="history" rows="3" maxlength="2000" placeholder="Reparaturen, Fundgeschichte, frühere Besitzer …"></textarea></label><p class="muted">Einträge werden derzeit lokal in diesem Browser gespeichert. Für dauerhaften Zugriff auf mehreren Geräten folgt anschließend der geschützte Online-Speicher.</p><button type="submit">Im Kabinett speichern ↗</button></form></dialog><script src="app.js"></script></body></html>
+
+<main>
+<section id="landing">
+<section class="hero">
+<div>
+<p class="eyebrow">PRIVATE SAMMLUNG · ANALOGE FASZINATION</p>
+<h1>Technik mit<br><em>Geschichte.</em></h1>
+<p class="lead">Radios, die Geschichten erzählen. Funkgeräte, die Welten verbinden. Messgeräte, die Unsichtbares sichtbar machen.</p>
+<a class="discover" href="#categories">Das Kabinett entdecken ↘</a>
+</div>
+<div class="art">
+<svg viewBox="0 0 600 340" role="img" aria-label="Illustration eines Oszilloskops">
+<rect x="55" y="50" width="490" height="240" rx="20" fill="#c9bd98"/>
+<rect x="80" y="75" width="250" height="190" rx="12" fill="#514629"/>
+<path d="M95 170 Q120 80 145 170 T195 170 T245 170 T295 170" fill="none" stroke="#fff1ce" stroke-width="5"/>
+<g fill="#514326" stroke="#f4e6c2" stroke-width="5">
+<circle cx="400" cy="130" r="28"/>
+<circle cx="475" cy="130" r="28"/>
+<circle cx="400" cy="215" r="28"/>
+<circle cx="475" cy="215" r="28"/>
+</g>
+</svg>
+<small>Die Schönheit des Analogen · ILLUSTRATION 001</small>
+</div>
+</section>
+
+<div class="status">GESAMMELT AUS LEIDENSCHAFT. BEWAHRT MIT NEUGIER.</div>
+
+<section id="categories">
+<p class="eyebrow">DAS ARCHIV</p>
+<h2>Gesammelte Schätze<span>.</span></h2>
+<p class="muted">Sieben Bereiche zum Entdecken</p>
+<div id="tiles" class="tiles"></div>
+</section>
+</section>
+
+<section id="category" hidden>
+<p class="eyebrow">DAS ARCHIV</p>
+<h1 id="catTitle"></h1>
+<p id="catDesc" class="lead"></p>
+<div class="toolbar">
+<a href="#" data-home>← Zurück zum Kabinett</a>
+<input id="search" placeholder="Diese Kategorie durchsuchen …">
+</div>
+<div id="entries" class="entries"></div>
+<div id="empty" class="empty">
+<h2>Noch ist dieser Bereich leer.</h2>
+<p>Hier kannst du später deine eigenen Geräte, Fotos und Geschichten präsentieren.</p>
+<button id="first">Erstes Stück hinzufügen</button>
+</div>
+</section>
+</main>
+
+<!-- Administrator-Anmeldung -->
+<dialog id="loginDialog">
+<form id="loginForm">
+<button type="button" id="loginClose" class="close">×</button>
+<p class="eyebrow">ADMINISTRATION</p>
+<h2>Willkommen zurück.</h2>
+
+<label>Benutzername
+<input id="adminUser" required autocomplete="username">
+</label>
+
+<label>Passwort
+<input id="adminPassword" type="password"
+required autocomplete="current-password">
+</label>
+
+<p id="loginError" class="muted" role="alert"></p>
+
+<button type="submit">Anmelden ↗</button>
+</form>
+</dialog>
+
+<!-- Detailansicht -->
+<dialog id="detail">
+<button type="button" id="detailClose" class="close">×</button>
+<div id="detailContent"></div>
+</dialog>
+
+<footer>
+ELEKTRONIK / KABINETT
+<span>Für die Freude am Entdecken, Sammeln und Bewahren.</span>
+</footer>
+
+<!-- Eingabe und Bearbeitung von Geräten -->
+<dialog id="editor">
+<form id="form">
+<button type="button" id="close" class="close">×</button>
+<p class="eyebrow">DEIN ARCHIV ERWEITERN</p>
+<h2>Ein neues Stück.</h2>
+
+<label>Fotos auswählen
+<input id="photo" type="file" accept="image/*" multiple>
+</label>
+
+<div id="previewList" class="preview-list"></div>
+
+<label>Gerätename
+<input id="title" required maxlength="100" placeholder="z. B. Tektronix 545A">
+</label>
+
+<label>Hersteller
+<input id="manufacturer" maxlength="100" placeholder="z. B. Tektronix">
+</label>
+
+<label>Modell
+<input id="model" maxlength="100" placeholder="z. B. 545A">
+</label>
+
+<label>Kategorie
+<select id="catSelect"></select>
+</label>
+
+<div class="form-row">
+<label>Baujahr / Zeitraum
+<input id="year" maxlength="40" placeholder="z. B. 1960–1965">
+</label>
+
+<label>Herkunft
+<input id="origin" maxlength="120" placeholder="z. B. Flohmarkt">
+</label>
+</div>
+
+<label>Beschreibung und technische Besonderheiten
+<textarea id="desc" rows="4" maxlength="3000" placeholder="Technische Daten, Zustand, Besonderheiten …"></textarea>
+</label>
+
+<label>Restaurierung / Geschichte
+<textarea id="history" rows="3" maxlength="2000" placeholder="Reparaturen, Fundgeschichte, frühere Besitzer …"></textarea>
+</label>
+
+<p class="muted">
+Einträge und Fotos werden auf dem eigenen Server gespeichert.
+Die Verwaltung ist nur nach Administrator-Anmeldung möglich.
+</p>
+
+<button type="submit">Im Kabinett speichern ↗</button>
+</form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -452,8 +452,10 @@ dialog img {
     }
 }
 
+ 
 /* =========================================
    Animiertes Vintage-Oszilloskop
+   Sinuskurve wird vollständig aufgebaut
    ========================================= */
 
 .scope-art {
@@ -479,35 +481,52 @@ dialog img {
     opacity: .42;
 }
 
-/* Grundlinie bleibt dauerhaft sichtbar */
-.scope-trace-glow {
-    stroke-dasharray: none;
-    animation: none;
-    opacity: .35;
-    filter: none;
-}
-
-/* Heller Lichtimpuls wandert über die Kurve */
+/* Beide Kurven werden gemeinsam gezeichnet */
+.scope-trace-glow,
 .scope-trace {
-    stroke-dasharray: 90 910;
-    stroke-dashoffset: 0;
-    animation: scopeSweep 1.5s linear infinite;
-    stroke-width: 3;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: scopeDraw 2.4s linear infinite;
 }
 
-@keyframes scopeSweep {
-    from {
-        stroke-dashoffset: 0;
+/* Leuchten der grünen Kurve */
+.scope-trace-glow {
+    opacity: .75;
+}
+
+/* Helle eigentliche Messkurve */
+.scope-trace {
+    stroke-width: 2.5;
+}
+
+/* Kurve von links nach rechts aufbauen */
+@keyframes scopeDraw {
+    0% {
+        stroke-dashoffset: 1000;
+        opacity: .2;
     }
 
-    to {
-        stroke-dashoffset: 1000;
+    70% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    90% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .scope-trace {
+    .scope-trace,
+    .scope-trace-glow {
         animation: none;
         stroke-dasharray: none;
+        stroke-dashoffset: 0;
     }
 }

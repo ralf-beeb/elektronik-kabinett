@@ -1,9 +1,460 @@
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap');
-:root{--bg:#0b2119;--gold:#e7c979;--cream:#f4efdf;--muted:#b9b7a6;--line:#65583a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#18392b,var(--bg) 65%);color:var(--cream);font-family:'DM Sans',sans-serif;min-height:100vh}header{height:75px;padding:0 5vw;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #c9a65a33}.brand{font-size:13px;letter-spacing:2px;color:var(--cream);text-decoration:none}.brand i{font-style:normal;color:#bcae85}nav{display:flex;gap:20px;align-items:center}button,.toolbar a{background:transparent;border:1px solid var(--line);color:var(--cream);padding:11px 16px;border-radius:4px;cursor:pointer;text-decoration:none;font:inherit;font-size:13px}main{max-width:1180px;margin:auto;padding:0 24px}.hero{display:grid;grid-template-columns:1fr 1fr;gap:7%;align-items:center;margin:80px 0 65px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:3px;font-weight:600}h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500}h1{font-size:clamp(55px,7vw,90px);line-height:1;margin:35px 0 25px}h1 em{color:var(--gold)}.lead{max-width:440px;color:#c7c4b5;line-height:1.9}.discover{display:inline-block;margin-top:25px;padding-bottom:12px;border-bottom:1px solid var(--gold);color:var(--cream);text-decoration:none;font-size:13px}.art{padding:22px;background:radial-gradient(ellipse,#665533,#29291e);border:1px solid #ad9256;border-radius:12px}.art svg{width:100%}.art small{display:block;color:#eadbb4;font-size:9px;margin-top:12px}.status{border-block:1px solid #b99b5544;padding:20px 0;color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:65px}h2{font-size:38px;margin:12px 0}h2 span{color:var(--gold)}.muted{color:var(--muted);font-size:12px}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:28px 0 100px}.tile{min-height:140px;padding:22px;display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#1a382b,#14291f);border:1px solid #b99b5555;border-radius:8px;color:var(--cream);text-decoration:none;transition:.2s}.tile:hover{transform:translateY(-3px);border-color:var(--gold)}.symbol{width:58px;height:58px;border:1px solid #b99b55;border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:26px}.tile strong{font:21px 'Playfair Display';display:block}.tile small{display:block;color:var(--muted);font-size:11px;margin-top:7px}.toolbar{display:flex;justify-content:space-between;align-items:center;margin:35px 0 25px;border-top:1px solid #b99b5555;padding-top:20px}.toolbar input,input,select,textarea{background:#091a13;color:var(--cream);border:1px solid var(--line);padding:12px;border-radius:4px;font:inherit}.entries{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.entry{background:#24352b;border:1px solid var(--line);padding:18px}.entry img{width:100%;max-height:230px;object-fit:cover}.empty{border:1px dashed var(--line);padding:55px;text-align:center;margin:30px 0 100px}.empty p{color:var(--muted)}footer{border-top:1px solid #b99b5555;padding:28px 5vw;display:flex;justify-content:space-between;color:#aaa58e;font-size:10px;letter-spacing:1px}dialog{background:#14291f;color:var(--cream);border:1px solid var(--gold);border-radius:8px;width:min(540px,95vw);padding:28px}dialog::backdrop{background:#000b}dialog label{display:block;margin:14px 0;color:var(--gold);font-size:12px}dialog input,dialog select,dialog textarea{display:block;width:100%;margin-top:7px}dialog img{max-width:100%;max-height:140px}.close{float:right;font-size:22px}[hidden]{display:none!important}@media(max-width:800px){.hero{grid-template-columns:1fr;margin:45px 0}.tiles,.entries{grid-template-columns:repeat(2,1fr)}}@media(max-width:550px){.tiles,.entries{grid-template-columns:1fr}.hero h1{font-size:58px}.toolbar,footer{align-items:flex-start;gap:15px;flex-direction:column}.toolbar input{width:100%}}
-.clickable-entry{cursor:default;transition:.2s}.clickable-entry:hover{border-color:var(--gold);transform:translateY(-2px)}.detail-button{margin-top:8px;color:var(--gold);border-color:var(--line)}.no-photo{height:180px;display:grid;place-items:center;background:#14291f;color:var(--gold);font:60px 'Playfair Display'}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.preview-list{display:flex;gap:9px;flex-wrap:wrap}.preview-list img{width:88px;height:72px;object-fit:cover;border:1px solid var(--line);border-radius:4px}.detail-photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0}.detail-photos img{width:100%;max-height:270px;object-fit:contain;background:#091a13;border-radius:5px}.detail-maker{color:var(--gold)}#detail{max-height:90vh;overflow:auto}#detail h2{margin-top:8px}#detail h3{font-size:20px;margin:22px 0 7px}#detail p{line-height:1.7;color:var(--muted)}.detail-meta{display:flex;gap:30px;flex-wrap:wrap}.detail-meta dt{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px}.detail-meta dd{margin:5px 0;color:var(--cream)}@media(max-width:550px){.form-row{grid-template-columns:1fr}.detail-photos{grid-template-columns:1fr}}
 
+:root {
+    --bg: #0b2119;
+    --gold: #e7c979;
+    --cream: #f4efdf;
+    --muted: #b9b7a6;
+    --line: #65583a;
+}
 
-/* Animiertes Vintage-Oszilloskop */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(ellipse at top, #18392b, var(--bg) 65%);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    height: 75px;
+    padding: 0 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #c9a65a33;
+}
+
+.brand {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--cream);
+    text-decoration: none;
+}
+
+.brand i {
+    font-style: normal;
+    color: #bcae85;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+button,
+.toolbar a {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--cream);
+    padding: 11px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font: inherit;
+    font-size: 13px;
+}
+
+main {
+    max-width: 1180px;
+    margin: auto;
+    padding: 0 24px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7%;
+    align-items: center;
+    margin: 80px 0 65px;
+}
+
+.eyebrow {
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-weight: 600;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: clamp(55px, 7vw, 90px);
+    line-height: 1;
+    margin: 35px 0 25px;
+}
+
+h1 em {
+    color: var(--gold);
+}
+
+.lead {
+    max-width: 440px;
+    color: #c7c4b5;
+    line-height: 1.9;
+}
+
+.discover {
+    display: inline-block;
+    margin-top: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gold);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.art {
+    padding: 22px;
+    background: radial-gradient(ellipse, #665533, #29291e);
+    border: 1px solid #ad9256;
+    border-radius: 12px;
+}
+
+.art svg {
+    width: 100%;
+}
+
+.art small {
+    display: block;
+    color: #eadbb4;
+    font-size: 9px;
+    margin-top: 12px;
+}
+
+.status {
+    border-block: 1px solid #b99b5544;
+    padding: 20px 0;
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 65px;
+}
+
+h2 {
+    font-size: 38px;
+    margin: 12px 0;
+}
+
+h2 span {
+    color: var(--gold);
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 28px 0 100px;
+}
+
+.tile {
+    min-height: 140px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(135deg, #1a382b, #14291f);
+    border: 1px solid #b99b5555;
+    border-radius: 8px;
+    color: var(--cream);
+    text-decoration: none;
+    transition: .2s;
+}
+
+.tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+}
+
+.symbol {
+    width: 58px;
+    height: 58px;
+    border: 1px solid #b99b55;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--gold);
+    font-size: 26px;
+}
+
+.tile strong {
+    font: 21px 'Playfair Display';
+    display: block;
+}
+
+.tile small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 35px 0 25px;
+    border-top: 1px solid #b99b5555;
+    padding-top: 20px;
+}
+
+.toolbar input,
+input,
+select,
+textarea {
+    background: #091a13;
+    color: var(--cream);
+    border: 1px solid var(--line);
+    padding: 12px;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.entries {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.entry {
+    background: #24352b;
+    border: 1px solid var(--line);
+    padding: 18px;
+}
+
+.entry img {
+    width: 100%;
+    max-height: 230px;
+    object-fit: cover;
+}
+
+.empty {
+    border: 1px dashed var(--line);
+    padding: 55px;
+    text-align: center;
+    margin: 30px 0 100px;
+}
+
+.empty p {
+    color: var(--muted);
+}
+
+footer {
+    border-top: 1px solid #b99b5555;
+    padding: 28px 5vw;
+    display: flex;
+    justify-content: space-between;
+    color: #aaa58e;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+dialog {
+    background: #14291f;
+    color: var(--cream);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    width: min(540px, 95vw);
+    padding: 28px;
+}
+
+dialog::backdrop {
+    background: #000b;
+}
+
+dialog label {
+    display: block;
+    margin: 14px 0;
+    color: var(--gold);
+    font-size: 12px;
+}
+
+dialog input,
+dialog select,
+dialog textarea {
+    display: block;
+    width: 100%;
+    margin-top: 7px;
+}
+
+dialog img {
+    max-width: 100%;
+    max-height: 140px;
+}
+
+.close {
+    float: right;
+    font-size: 22px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media(max-width: 800px) {
+    .hero {
+        grid-template-columns: 1fr;
+        margin: 45px 0;
+    }
+
+    .tiles,
+    .entries {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 550px) {
+    .tiles,
+    .entries {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 58px;
+    }
+
+    .toolbar,
+    footer {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .toolbar input {
+        width: 100%;
+    }
+}
+
+.clickable-entry {
+    cursor: default;
+    transition: .2s;
+}
+
+.clickable-entry:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+.detail-button {
+    margin-top: 8px;
+    color: var(--gold);
+    border-color: var(--line);
+}
+
+.no-photo {
+    height: 180px;
+    display: grid;
+    place-items: center;
+    background: #14291f;
+    color: var(--gold);
+    font: 60px 'Playfair Display';
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.preview-list {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+}
+
+.preview-list img {
+    width: 88px;
+    height: 72px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+}
+
+.detail-photos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.detail-photos img {
+    width: 100%;
+    max-height: 270px;
+    object-fit: contain;
+    background: #091a13;
+    border-radius: 5px;
+}
+
+.detail-maker {
+    color: var(--gold);
+}
+
+#detail {
+    max-height: 90vh;
+    overflow: auto;
+}
+
+#detail h2 {
+    margin-top: 8px;
+}
+
+#detail h3 {
+    font-size: 20px;
+    margin: 22px 0 7px;
+}
+
+#detail p {
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.detail-meta {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.detail-meta dt {
+    font-size: 10px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.detail-meta dd {
+    margin: 5px 0;
+    color: var(--cream);
+}
+
+@media(max-width: 550px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-photos {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   Animiertes Vintage-Oszilloskop
+   ========================================= */
 
 .scope-art {
     background: radial-gradient(
@@ -40,7 +491,7 @@
 .scope-trace {
     stroke-dasharray: 90 910;
     stroke-dashoffset: 0;
-    animation: scopeSweep 2.5s linear infinite;
+    animation: scopeSweep 1.5s linear infinite;
     stroke-width: 3;
 }
 
@@ -48,8 +499,9 @@
     from {
         stroke-dashoffset: 0;
     }
+
     to {
-        stroke-dashoffset: -1000;
+        stroke-dashoffset: 1000;
     }
 }
 

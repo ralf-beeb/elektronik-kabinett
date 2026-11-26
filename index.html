@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="de">
 <head>
@@ -8,7 +7,6 @@
 <title>Elektronik-Kabinett · Technik mit Geschichte</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 <header>
 <a class="brand" href="#" data-home>∿ ELEKTRONIK <i>/ KABINETT</i></a>
@@ -20,7 +18,6 @@
 <button id="add" hidden>+ Stück hinzufügen</button>
 </nav>
 </header>
-
 <main>
 <section id="landing">
 <section class="hero">
@@ -28,241 +25,104 @@
 <p class="eyebrow">PRIVATE SAMMLUNG · ANALOGE FASZINATION</p>
 <h1>Technik mit<br><em>Geschichte.</em></h1>
 <p class="lead">Radios, die Geschichten erzählen. Funkgeräte, die Welten verbinden. Messgeräte, die Unsichtbares sichtbar machen.</p>
-<a class="discover" href="#categories">Das Kabinett entdecken ↘</a><br> 
-    <!-- ##################   Abstand zum Vorschaubild #####################################  -->
-
+<a class="discover" href="#categories">Das Kabinett entdecken ↘</a><br>
+<!-- ##################   Abstand zum Vorschaubild #####################################  -->
 <div class="art scope-art">
-  <svg class="scope" viewBox="0 0 600 390"
-       role="img" aria-label="Animiertes analoges Oszilloskop mit grüner Sinuskurve">
-
+  <svg class="scope" viewBox="0 0 600 390" role="img" aria-label="Animiertes analoges Oszilloskop mit grüner Sinuskurve">
     <defs>
       <linearGradient id="scopeBody" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#d4c69f"/>
         <stop offset="100%" stop-color="#827452"/>
       </linearGradient>
-
       <linearGradient id="scopeScreen" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#102b20"/>
         <stop offset="100%" stop-color="#06130e"/>
       </linearGradient>
-
       <radialGradient id="crtGlow">
         <stop offset="0%" stop-color="#174b32"/>
         <stop offset="100%" stop-color="#07170f"/>
       </radialGradient>
-
       <filter id="greenGlow" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="4" result="blur"/>
-        <feMerge>
-          <feMergeNode in="blur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
     </defs>
-
-    <!-- Gerätegehäuse -->
-    <rect x="20" y="20" width="560" height="340"
-          rx="17" fill="url(#scopeBody)"
-          stroke="#f0dca6" stroke-width="2"/>
-
-    <rect x="30" y="30" width="540" height="320"
-          rx="12" fill="#253326"/>
-
-    <!-- Bildschirm -->
-    <rect x="52" y="52" width="355" height="265"
-          rx="16" fill="#080f0b"
-          stroke="#b7a77e" stroke-width="5"/>
-
-    <rect x="65" y="65" width="329" height="239"
-          rx="12" fill="url(#crtGlow)"/>
-
-    <!-- Messraster -->
+    <rect x="20" y="20" width="560" height="340" rx="17" fill="url(#scopeBody)" stroke="#f0dca6" stroke-width="2"/>
+    <rect x="30" y="30" width="540" height="320" rx="12" fill="#253326"/>
+    <rect x="52" y="52" width="355" height="265" rx="16" fill="#080f0b" stroke="#b7a77e" stroke-width="5"/>
+    <rect x="65" y="65" width="329" height="239" rx="12" fill="url(#crtGlow)"/>
     <g class="scope-grid" stroke="#4b986b" stroke-width="0.8">
       <path d="M98 65V304 M131 65V304 M164 65V304 M197 65V304 M230 65V304 M263 65V304 M296 65V304 M329 65V304 M362 65V304"/>
       <path d="M65 89H394 M65 113H394 M65 137H394 M65 161H394 M65 185H394 M65 209H394 M65 233H394 M65 257H394 M65 281H394"/>
     </g>
-
-    <!-- Bildschirm-Mittellinie -->
-    <path d="M65 185H394"
-          stroke="#8bd69a" stroke-width="1"
-          opacity=".35" stroke-dasharray="3 5"/>
-
-    <!-- Leuchtende Sinuskurve -->
-   <!-- Leuchtende Sinuskurve -->
-<g clip-path="none" filter="url(#greenGlow)">
-  <path class="scope-trace-glow"
-        pathLength="1000"
-        d="M65 185 C92 185 92 105 119 105 S146 265 173 265 S200 105 227 105 S254 265 281 265 S308 105 335 105 S362 185 394 185"
-        fill="none" stroke="#45ff91"
-        stroke-width="5" stroke-linecap="round"/>
-
-  <path class="scope-trace"
-        pathLength="1000"
-        d="M65 185 C92 185 92 105 119 105 S146 265 173 265 S200 105 227 105 S254 265 281 265 S308 105 335 105 S362 185 394 185"
-        fill="none" stroke="#d5ffd8"
-        stroke-width="1.7" stroke-linecap="round"/>
-</g>
-
-    <!-- Gerätebeschriftung -->
-    <text x="445" y="75" fill="#f0e2bc"
-          font-size="15" font-family="sans-serif"
-          letter-spacing="2">OSCILLOSCOPE</text>
-
-    <text x="445" y="97" fill="#e7c979"
-          font-size="10" font-family="sans-serif"
-          letter-spacing="2">MODEL 545A</text>
-
-    <!-- Drehknöpfe -->
+    <path d="M65 185H394" stroke="#8bd69a" stroke-width="1" opacity=".35" stroke-dasharray="3 5"/>
+    <g clip-path="none" filter="url(#greenGlow)">
+      <path class="scope-trace-glow" pathLength="1000" d="M65 185 C92 185 92 105 119 105 S146 265 173 265 S200 105 227 105 S254 265 281 265 S308 105 335 105 S362 185 394 185" fill="none" stroke="#45ff91" stroke-width="5" stroke-linecap="round"/>
+      <path class="scope-trace" pathLength="1000" d="M65 185 C92 185 92 105 119 105 S146 265 173 265 S200 105 227 105 S254 265 281 265 S308 105 335 105 S362 185 394 185" fill="none" stroke="#d5ffd8" stroke-width="1.7" stroke-linecap="round"/>
+    </g>
+    <text x="445" y="75" fill="#f0e2bc" font-size="15" font-family="sans-serif" letter-spacing="2">OSCILLOSCOPE</text>
+    <text x="445" y="97" fill="#e7c979" font-size="10" font-family="sans-serif" letter-spacing="2">MODEL 545A</text>
     <g stroke="#d9c89f" stroke-width="2">
-      <circle cx="475" cy="155" r="25" fill="#51452e"/>
-      <circle cx="475" cy="155" r="17" fill="#b5a47c"/>
-      <path d="M475 155L475 137" stroke="#fff0c5" stroke-width="3"/>
-
-      <circle cx="475" cy="225" r="25" fill="#51452e"/>
-      <circle cx="475" cy="225" r="17" fill="#b5a47c"/>
-      <path d="M475 225L489 215" stroke="#fff0c5" stroke-width="3"/>
-
-      <circle cx="475" cy="295" r="25" fill="#51452e"/>
-      <circle cx="475" cy="295" r="17" fill="#b5a47c"/>
-      <path d="M475 295L475 277" stroke="#fff0c5" stroke-width="3"/>
+      <circle cx="475" cy="155" r="25" fill="#51452e"/><circle cx="475" cy="155" r="17" fill="#b5a47c"/><path d="M475 155L475 137" stroke="#fff0c5" stroke-width="3"/>
+      <circle cx="475" cy="225" r="25" fill="#51452e"/><circle cx="475" cy="225" r="17" fill="#b5a47c"/><path d="M475 225L489 215" stroke="#fff0c5" stroke-width="3"/>
+      <circle cx="475" cy="295" r="25" fill="#51452e"/><circle cx="475" cy="295" r="17" fill="#b5a47c"/><path d="M475 295L475 277" stroke="#fff0c5" stroke-width="3"/>
     </g>
-
-    <!-- Kleine Anzeigen -->
     <g fill="#e7c979" font-family="sans-serif" font-size="9">
-      <text x="430" y="190">VOLTS / DIV</text>
-      <text x="430" y="260">TIME / DIV</text>
-      <text x="430" y="330">TRIGGER</text>
+      <text x="430" y="190">VOLTS / DIV</text><text x="430" y="260">TIME / DIV</text><text x="430" y="330">TRIGGER</text>
     </g>
-
-    <!-- Statusleuchte -->
-    <circle cx="550" cy="52" r="5" fill="#62ed9b">
-      <animate attributeName="opacity"
-               values=".4;1;.4" dur="2s"
-               repeatCount="indefinite"/>
-    </circle>
+    <circle cx="550" cy="52" r="5" fill="#62ed9b"><animate attributeName="opacity" values=".4;1;.4" dur="2s" repeatCount="indefinite"/></circle>
   </svg>
-
   <small>ANALOG MEASUREMENT · ELECTRONIC INSTRUMENTS · 001</small>
 </div>
-
 </section>
-
 <div class="status">GESAMMELT AUS LEIDENSCHAFT. BEWAHRT MIT NEUGIER.</div>
-
 <section id="categories">
-<p class="eyebrow">DAS ARCHIV</p>
-<h2>Gesammelte Schätze<span>.</span></h2>
-<p class="muted">Sieben Bereiche zum Entdecken</p>
-<div id="tiles" class="tiles"></div>
+<p class="eyebrow">DAS ARCHIV</p><h2>Gesammelte Schätze<span>.</span></h2>
+<p class="muted">Sieben Bereiche zum Entdecken</p><div id="tiles" class="tiles"></div>
 </section>
 </section>
-
 <section id="category" hidden>
-<p class="eyebrow">DAS ARCHIV</p>
-<h1 id="catTitle"></h1>
-<p id="catDesc" class="lead"></p>
-<div class="toolbar">
-<a href="#" data-home>← Zurück zum Kabinett</a>
-<input id="search" placeholder="Diese Kategorie durchsuchen …">
-</div>
+<p class="eyebrow">DAS ARCHIV</p><h1 id="catTitle"></h1><p id="catDesc" class="lead"></p>
+<div class="toolbar"><a href="#" data-home>← Zurück zum Kabinett</a><input id="search" placeholder="Diese Kategorie durchsuchen …"></div>
 <div id="entries" class="entries"></div>
-<div id="empty" class="empty">
-<h2>Noch ist dieser Bereich leer.</h2>
-<p>Hier kannst du später deine eigenen Geräte, Fotos und Geschichten präsentieren.</p>
-<button id="first">Erstes Stück hinzufügen</button>
-</div>
+<div id="empty" class="empty"><h2>Noch ist dieser Bereich leer.</h2><p>Hier kannst du später deine eigenen Geräte, Fotos und Geschichten präsentieren.</p><button id="first">Erstes Stück hinzufügen</button></div>
 </section>
 </main>
-
-<!-- Administrator-Anmeldung -->
 <dialog id="loginDialog">
 <form id="loginForm">
 <button type="button" id="loginClose" class="close">×</button>
-<p class="eyebrow">ADMINISTRATION</p>
-<h2>Willkommen zurück.</h2>
-
-<label>Benutzername
-<input id="adminUser" required autocomplete="username">
-</label>
-
-<label>Passwort
-<input id="adminPassword" type="password"
-required autocomplete="current-password">
-</label>
-
-<p id="loginError" class="muted" role="alert"></p>
-
-<button type="submit">Anmelden ↗</button>
+<p class="eyebrow">ADMINISTRATION</p><h2>Willkommen zurück.</h2>
+<label>Benutzername<input id="adminUser" required autocomplete="username"></label>
+<label>Passwort<input id="adminPassword" type="password" required autocomplete="current-password"></label>
+<p id="loginError" class="muted" role="alert"></p><button type="submit">Anmelden ↗</button>
 </form>
 </dialog>
-
-<!-- Detailansicht -->
-<dialog id="detail">
-<button type="button" id="detailClose" class="close">×</button>
-<div id="detailContent"></div>
-</dialog>
-
-<footer>
-ELEKTRONIK / KABINETT
-<span>Für die Freude am Entdecken, Sammeln und Bewahren.</span>
-</footer>
-
-<!-- Eingabe und Bearbeitung von Geräten -->
+<dialog id="detail"><button type="button" id="detailClose" class="close">×</button><div id="detailContent"></div></dialog>
+<footer>ELEKTRONIK / KABINETT<span>Für die Freude am Entdecken, Sammeln und Bewahren.</span></footer>
 <dialog id="editor">
 <form id="form">
 <button type="button" id="close" class="close">×</button>
-<p class="eyebrow">DEIN ARCHIV ERWEITERN</p>
-<h2>Ein neues Stück.</h2>
-
-<label>Fotos auswählen
-<input id="photo" type="file" accept="image/*" multiple>
-</label>
-
+<p class="eyebrow">DEIN ARCHIV ERWEITERN</p><h2>Ein neues Stück.</h2>
+<label>Fotos auswählen<input id="photo" type="file" accept="image/*" multiple></label>
 <div id="previewList" class="preview-list"></div>
-
-<label>Gerätename
-<input id="title" required maxlength="100" placeholder="z. B. Tektronix 545A">
+<label>PDF-Dokumente auswählen
+<input id="documents" type="file" accept="application/pdf,.pdf" multiple>
 </label>
-
-<label>Hersteller
-<input id="manufacturer" maxlength="100" placeholder="z. B. Tektronix">
-</label>
-
-<label>Modell
-<input id="model" maxlength="100" placeholder="z. B. 545A">
-</label>
-
-<label>Kategorie
-<select id="catSelect"></select>
-</label>
-
+<div id="documentPreviewList" class="preview-list"></div>
+<label>Gerätename<input id="title" required maxlength="100" placeholder="z. B. Tektronix 545A"></label>
+<label>Hersteller<input id="manufacturer" maxlength="100" placeholder="z. B. Tektronix"></label>
+<label>Modell<input id="model" maxlength="100" placeholder="z. B. 545A"></label>
+<label>Kategorie<select id="catSelect"></select></label>
 <div class="form-row">
-<label>Baujahr / Zeitraum
-<input id="year" maxlength="40" placeholder="z. B. 1960–1965">
-</label>
-
-<label>Herkunft
-<input id="origin" maxlength="120" placeholder="z. B. Flohmarkt">
-</label>
+<label>Baujahr / Zeitraum<input id="year" maxlength="40" placeholder="z. B. 1960–1965"></label>
+<label>Herkunft<input id="origin" maxlength="120" placeholder="z. B. Flohmarkt"></label>
 </div>
-
-<label>Beschreibung und technische Besonderheiten
-<textarea id="desc" rows="4" maxlength="3000" placeholder="Technische Daten, Zustand, Besonderheiten …"></textarea>
-</label>
-
-<label>Restaurierung / Geschichte
-<textarea id="history" rows="3" maxlength="2000" placeholder="Reparaturen, Fundgeschichte, frühere Besitzer …"></textarea>
-</label>
-
-<p class="muted">
-Einträge und Fotos werden auf dem eigenen Server gespeichert.
-Die Verwaltung ist nur nach Administrator-Anmeldung möglich.
-</p>
-
+<label>Beschreibung und technische Besonderheiten<textarea id="desc" rows="4" maxlength="3000" placeholder="Technische Daten, Zustand, Besonderheiten …"></textarea></label>
+<label>Restaurierung / Geschichte<textarea id="history" rows="3" maxlength="2000" placeholder="Reparaturen, Fundgeschichte, frühere Besitzer …"></textarea></label>
+<p class="muted">Einträge und Fotos werden auf dem eigenen Server gespeichert. Die Verwaltung ist nur nach Administrator-Anmeldung möglich.</p>
 <button type="submit">Im Kabinett speichern ↗</button>
 </form>
 </dialog>
-
 <script src="app.js"></script>
 </body>
 </html>

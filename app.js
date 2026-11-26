@@ -10,6 +10,7 @@ let isAdmin = false;
 let csrfToken = "";
 let editingId = null;
 let selectedPhotos = [];
+let selectedDocuments = [];
 
 async function api(path, options = {}) {
     const headers = new Headers(options.headers || {});
@@ -56,6 +57,10 @@ function safe(value) {
 
 function photoUrl(filename) {
     return API_BASE + "/api/photos/" + encodeURIComponent(filename);
+}
+
+function documentUrl(filename) {
+    return API_BASE + "/api/documents/" + encodeURIComponent(filename);
 }
 
 function updateAdminView() {
@@ -261,84 +266,69 @@ function render() {
     });
 }
 
-// Detailansicht
+// Detailansicht einschließlich PDF-Dokumenten
 async function showDetail(id) {
     try {
         const item = await api("/api/items/" + id);
-
         const photos = item.photos || [];
+        const documents = item.documents || [];
+
+        const documentMarkup = documents.length
+            ? '<section class="detail-documents"><h3>Dokumente & Unterlagen</h3><ul>' +
+              documents.map(doc =>
+                  '<li><a class="document-link" href="' +
+                  documentUrl(doc.filename) +
+                  '" target="_blank" rel="noopener">📄 ' +
+                  safe(doc.original_name || doc.filename) +
+                  '</a>' +
+                  (isAdmin
+                      ? ' <button type="button" class="delete-document" data-document-id="' +
+                        Number(doc.id) + '">Dokument löschen</button>'
+                      : '') +
+                  '</li>'
+              ).join("") +
+              '</ul></section>'
+            : (isAdmin ? '<p class="muted">Noch keine PDF-Dokumente hinterlegt.</p>' : '');
 
         $("#detailContent").innerHTML =
-            '<p class="eyebrow">' +
-            safe(item.category.toUpperCase()) +
-            '</p>' +
-
+            '<p class="eyebrow">' + safe((item.category || "").toUpperCase()) + '</p>' +
             '<h2>' + safe(item.title) + '</h2>' +
-
             (item.manufacturer
-                ? '<p class="detail-maker">' +
-                  safe(item.manufacturer) +
-                  '</p>'
-                : '') +
-
+                ? '<p class="detail-maker">' + safe(item.manufacturer) + '</p>' : '') +
             (item.model
-                ? '<p class="muted">Modell: ' +
-                  safe(item.model) +
-                  '</p>'
-                : '') +
-
+                ? '<p class="muted">Modell: ' + safe(item.model) + '</p>' : '') +
             (photos.length
                 ? '<div class="detail-photos">' +
                   photos.map(photo =>
-                      '<img src="' +
-                      photoUrl(photo.filename) +
+                      '<img src="' + photoUrl(photo.filename) +
                       '" alt="' + safe(item.title) + '">'
-                  ).join("") +
-                  '</div>'
-                : '') +
-
+                  ).join("") + '</div>' : '') +
             '<dl class="detail-meta">' +
-
             (item.year
-                ? '<div><dt>Baujahr / Zeitraum</dt><dd>' +
-                  safe(item.year) +
-                  '</dd></div>'
-                : '') +
-
+                ? '<div><dt>Baujahr / Zeitraum</dt><dd>' + safe(item.year) + '</dd></div>' : '') +
             (item.origin
-                ? '<div><dt>Herkunft</dt><dd>' +
-                  safe(item.origin) +
-                  '</dd></div>'
-                : '') +
-
+                ? '<div><dt>Herkunft</dt><dd>' + safe(item.origin) + '</dd></div>' : '') +
             '</dl>' +
-
             (item.description
-                ? '<h3>Beschreibung</h3><p>' +
-                  safe(item.description) +
-                  '</p>'
-                : '') +
-
+                ? '<h3>Beschreibung</h3><p>' + safe(item.description) + '</p>' : '') +
             (item.history
-                ? '<h3>Geschichte & Restaurierung</h3><p>' +
-                  safe(item.history) +
-                  '</p>'
-                : '') +
-
+                ? '<h3>Geschichte & Restaurierung</h3><p>' + safe(item.history) + '</p>' : '') +
+            documentMarkup +
             (isAdmin
                 ? '<div class="admin-actions">' +
                   '<button type="button" id="editItem">Bearbeiten</button> ' +
-                  '<button type="button" id="deleteItem">Löschen</button>' +
-                  '</div>'
+                  '<button type="button" id="deleteItem">Löschen</button></div>'
                 : '');
 
         if (isAdmin) {
             $("#editItem").onclick = () => editItem(item);
             $("#deleteItem").onclick = () => deleteItem(item.id);
+            document.querySelectorAll(".delete-document").forEach(button => {
+                button.onclick = () => deleteDocument(button.dataset.documentId, item.id);
+            });
         }
 
         $("#detail").showModal();
-
     } catch (error) {
         alert("Gerät konnte nicht geladen werden: " + error.message);
     }
@@ -349,6 +339,15 @@ $("#detailClose").onclick = () => {
 };
 
 $("#search").oninput = render;
+
+// PDF-Auswahl beim Öffnen oder Bearbeiten zurücksetzen
+function resetDocumentSelection() {
+    selectedDocuments = [];
+    const input = $("#documents");
+    if (input) input.value = "";
+    const preview = $("#documentPreviewList");
+    if (preview) preview.replaceChildren();
+}
 
 // Neues Gerät anlegen
 function openEditor() {
@@ -364,6 +363,7 @@ function openEditor() {
 
     editingId = null;
     selectedPhotos = [];
+    resetDocumentSelection();
 
     $("#form").reset();
     $("#previewList").replaceChildren();
@@ -392,6 +392,7 @@ function editItem(item) {
 
     editingId = item.id;
     selectedPhotos = [];
+    resetDocumentSelection();
 
     $("#form").reset();
     $("#previewList").replaceChildren();
@@ -411,6 +412,18 @@ function editItem(item) {
         "Änderungen speichern ↗";
 
     $("#editor").showModal();
+}
+
+// PDF-Dokument löschen
+async function deleteDocument(documentId, itemId) {
+    if (!confirm("Möchtest du dieses PDF-Dokument wirklich löschen?")) return;
+    try {
+        await api("/api/documents/" + documentId, { method: "DELETE" });
+        await showDetail(itemId);
+        alert("Das PDF-Dokument wurde gelöscht.");
+    } catch (error) {
+        alert("Dokument konnte nicht gelöscht werden: " + error.message);
+    }
 }
 
 // Gerät löschen
@@ -473,6 +486,37 @@ $("#photo").onchange = event => {
     }
 };
 
+// PDF-Dateien auswählen und Dateinamen anzeigen
+$("#documents").onchange = event => {
+    const files = [...event.target.files];
+    const maxSize = 25 * 1024 * 1024;
+
+    for (const file of files) {
+        const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+        if (!isPdf) {
+            alert("Bitte ausschließlich PDF-Dateien auswählen.");
+            event.target.value = "";
+            resetDocumentSelection();
+            return;
+        }
+        if (file.size > maxSize) {
+            alert("Jedes PDF darf maximal 25 MB groß sein.");
+            event.target.value = "";
+            resetDocumentSelection();
+            return;
+        }
+    }
+
+    selectedDocuments = files;
+    $("#documentPreviewList").replaceChildren();
+    files.forEach(file => {
+        const line = document.createElement("p");
+        line.className = "document-preview";
+        line.textContent = "📄 " + file.name + " (" + (file.size / 1024 / 1024).toFixed(1) + " MB)";
+        $("#documentPreviewList").append(line);
+    });
+};
+
 // Gerät speichern oder bearbeiten
 $("#form").onsubmit = async event => {
     event.preventDefault();
@@ -512,10 +556,17 @@ $("#form").onsubmit = async event => {
 
         for (const file of selectedPhotos) {
             const formData = new FormData();
-
             formData.append("file", file);
-
             await api("/api/items/" + itemId + "/photos", {
+                method: "POST",
+                body: formData
+            });
+        }
+
+        for (const file of selectedDocuments) {
+            const formData = new FormData();
+            formData.append("file", file);
+            await api("/api/items/" + itemId + "/documents", {
                 method: "POST",
                 body: formData
             });
@@ -524,6 +575,7 @@ $("#form").onsubmit = async event => {
         $("#editor").close();
         $("#form").reset();
         $("#previewList").replaceChildren();
+        resetDocumentSelection();
 
         selectedPhotos = [];
         editingId = null;
